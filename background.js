@@ -1,13 +1,15 @@
 // background.js
 
 // This part creates the context menu item and corresponding listener
-let contextMenuitem = {
+let contextMenuItem = {
   "id": "reportBugItem",
   "title": "Rapporteer bug",
   "contexts": ["page", "selection"]
 };
 
-chrome.contextMenus.create(contextMenuitem);
+chrome.contextMenus.removeAll(function() {
+  chrome.contextMenus.create(contextMenuItem);
+});
 
 chrome.contextMenus.onClicked.addListener(function(clickData){
   if (clickData.menuItemId == "reportBugItem"){
