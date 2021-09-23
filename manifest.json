@@ -1,12 +1,13 @@
 {
-    "name": "BAS World bug reporting",
-    "description": "Let's report some bugs!",
+    "name": "BAS World Bug Reporter",
+    "description": "Bug reporting tool voor BAS medewerkers.",
     "version": "0.1",
     "manifest_version": 3,
     "background": {
       "service_worker": "background.js"
     },
     "action": {
+      "default_title": "BAS World Bug Reporter",
       "default_popup": "popup.html",
       "default_icon": {
         "16": "/images/icon16.png",
