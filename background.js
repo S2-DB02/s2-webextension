@@ -8,6 +8,10 @@ var contextMenuitem = {
 
 chrome.contextMenus.create(contextMenuitem);
 
-if (clickData.menuItemId == "reportBug"){
-  window.open("https://www.w3schools.com"); 
-}
+chrome.contextMenus.onClicked.addListener(function(clickData){
+  if (clickData.menuItemId == "reportBug"){
+  chrome.windows.create({'url': 'reportbug.html', 'type': 'popup'}, function(window) {
+
+  })
+  }
+})
