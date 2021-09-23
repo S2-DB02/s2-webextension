@@ -1,4 +1,4 @@
-// eventPage.js
+// background.js
 
 var contextMenuitem = {
   "id": "reportBug",
@@ -7,3 +7,7 @@ var contextMenuitem = {
 };
 
 chrome.contextMenus.create(contextMenuitem);
+
+if (clickData.menuItemId == "reportBug"){
+  window.open("https://www.w3schools.com"); 
+}
