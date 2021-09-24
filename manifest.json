@@ -17,7 +17,8 @@
     },
     "options_page": "options.html",
     "permissions": [
-      "contextMenus"
+      "contextMenus",
+      "storage"
     ],
     "icons": {
       "16": "/images/icon16.png",
