@@ -18,15 +18,16 @@ function hidePageElement(what)
     obj.style.display = "none";
 }
 
-function popupWindow(url) {
-    chrome.windows.create({"url": url, "type": "popup"
+// Event listener for "Report bug" button
+document.getElementById("reportBugBtn").addEventListener("click", ()=>{
+    chrome.windows.create({"url": "reportbug.html", "type": "popup"
     , "height": 600, "width": 600}, function(window) {})
-}
+})
 
-//reportBugBtn.onclick = popupWindow("reportbug.html");
-
-//document.getElementById("reportBugBtn")
-//    .addEventListener("click", popupWindow("reportbug.html"));
+// Event listener for "Ticket overview" button
+document.getElementById("overviewBtn").addEventListener("click", ()=>{
+    // Insert code to open new tab with ticket overview dashboard
+})
 
 if (userLoggedIn) {
     hidePageElement("login");
