@@ -4,33 +4,35 @@ let userLoggedIn = true;
 
 function showPageElement(what)
 {
-    var obj = typeof what == 'object'
+    var obj = typeof what == "object"
         ? what : document.getElementById(what);
 
-    obj.style.display = 'block';
-}  
-  
+    obj.style.display = "block";
+}
+
 function hidePageElement(what)
 {
     var obj = typeof what == 'object'
         ? what : document.getElementById(what);
 
-    obj.style.display = 'none';
+    obj.style.display = "none";
 }
 
 function popupWindow(url) {
-    chrome.windows.create({'url': url, 'type': 'popup'
+    chrome.windows.create({"url": url, "type": "popup"
     , "height": 600, "width": 600}, function(window) {})
 }
+
+//reportBugBtn.onclick = popupWindow("reportbug.html");
 
 //document.getElementById("reportBugBtn")
 //    .addEventListener("click", popupWindow("reportbug.html"));
 
 if (userLoggedIn) {
-    hidePageElement('login');
-    showPageElement('menu');
+    hidePageElement("login");
+    showPageElement("menu");
 }
 else {
-    hidePageElement('menu');
-    showPageElement('login');
+    hidePageElement("menu");
+    showPageElement("login");
 }

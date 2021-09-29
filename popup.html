@@ -3,26 +3,27 @@
   <head>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/popup.css">
+    <title>Popup | BAS World Bug Reporter</title>
   </head>
   <body>
     
     <h1>BAS World Bug Reporter</h1>
-    <h2>Welkom!</h2>
+    <h2>Welcome!</h2>
 
     <div id="login">
       <form action="" method="GET">
-        <label for="email">E-mail adres</label><br>
+        <label for="email">E-mailaddress</label><br>
         <input type="email" name="email" id="email"><br><br>
         <input type="button" value="Log in">
       </form>
     </div>
 
     <div id="menu">
-      <button id="reportBugBtn">Rapporteer bug</button><br>
-      <button id="overviewBtn">Ticket overzicht</button><br>
-      <button id="optionsBtn" href="options.html">Instellingen</button><br>
+      <button class="button" type="button" id="reportBugBtn">Report bug</button><br>
+      <button class="button" type="button" id="overviewBtn">Ticket overview</button><br>
+      <a class="button" href="options.html">Settings</a><br>
 
-      <p>Ingelogd als: medewerker@basworld.nl</p>
+      <p>Logged in as: medewerker@basworld.nl</p>
     </div>
     
     <script src="popup.js"></script>

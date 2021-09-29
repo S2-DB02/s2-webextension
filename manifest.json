@@ -1,6 +1,6 @@
 {
     "name": "BAS World Bug Reporter",
-    "description": "Bug reporting tool voor BAS medewerkers.",
+    "description": "Bug reporting tool for BAS employees.",
     "version": "0.1",
     "manifest_version": 3,
     "background": {
