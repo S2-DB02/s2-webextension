@@ -1,4 +1,7 @@
 body {
     background-color: white;
-    padding-top: 15px;
+}
+
+.container {
+    padding: 15px;
 }

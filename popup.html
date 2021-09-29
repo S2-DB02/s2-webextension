@@ -15,17 +15,23 @@
     
     <div class="container">
       <h1>BAS World Bug Reporter</h1>
-      <h2>Welcome!</h2>
 
       <div id="login">
         <form action="" method="GET">
-          <label for="email">Email address</label><br>
-          <input type="email" name="email" id="email"><br><br>
-          <input type="button" value="Log in">
+        
+          <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email">
+          </div>
+          <button type="submit" class="btn btn-primary" id="logInBtn">
+            Log in
+          </button>
+
         </form>
       </div>
 
       <div id="menu">
+        <h2>Welcome!</h2>
 
         <div class="d-grid gap-2 col-9 mx-auto">
           <button class="btn btn-primary" type="button" id="reportBugBtn">
@@ -41,7 +47,11 @@
           </a>
         </div>
 
-        <p>Logged in as: medewerker@basworld.nl</p>
+        <p>Logged in as: </p>
+        <p id="loggedInUser"></p>
+        <button class="btn btn-secondary btn-sm" type="button" id="logOutBtn">
+          Log out
+        </button>
       </div>
     </div>
     
