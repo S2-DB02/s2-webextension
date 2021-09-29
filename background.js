@@ -16,14 +16,25 @@ chrome.contextMenus.onClicked.addListener(function(clickData){
   chrome.windows.create({'url': 'reportbug.html', 'type': 'popup'
   , "height": 600, "width": 600}, function(window) {})
   }
-})
+});
 
 // This part creates the badge (number of bugs on page)
-let badgeEnabled = true;
 let badgeAmount = 1; // replaced by value from db when the time comes
 let badgeAmountString = badgeAmount.toString();
+chrome.action.setBadgeBackgroundColor({color: 'red'});
 
-if (badgeEnabled){
-  chrome.action.setBadgeText({text: badgeAmountString});
-  chrome.action.setBadgeBackgroundColor({color: 'red'});
+function getBadgeStatus() {
+  chrome.storage.sync.get("badgeEnabled", (data) => {
+    if (data.badgeEnabled == true){
+      chrome.action.setBadgeText({text: badgeAmountString});
+    } else {
+      chrome.action.setBadgeText({text: ""});
+    }
+  });
 }
+
+getBadgeStatus();
+
+chrome.storage.onChanged.addListener(function(){
+  getBadgeStatus();
+});
