@@ -6,3 +6,8 @@ html {
 body {
   text-align: center;
 }
+
+.btn {
+  margin: 3px 0;
+  width: 80%;
+}

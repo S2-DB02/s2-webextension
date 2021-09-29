@@ -1,30 +1,48 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    
     <link rel="stylesheet" href="css/styles.css">
     <title>Report bug | BAS World Bug Reporter</title>
   </head>
   <body>
 
-    <h1>Report bug</h1>
+    <div class="container">
 
-    <form>
+      <h1>Report bug</h1>
 
-      <label for="bugtype">Type of bug:</label><br>
-      <select id="bugtype" name="bugtypes">
-        <option value="content">Content</option>
-        <option value="tekst">Text</option>
-      </select><br>
-      <label for="url">URL:</label><br>
-      <input type="url" id="url" name="url"><br>
-      <label for="screenshot">Upload screenshot (optional):</label><br>
-      <input type="file" id="screenshot" name="screenshot"><br>
-      <label for="description">Description:</label><br>
-      <textarea name="description" rows="10" cols="30"></textarea><br><br>
-      <input type="submit" value="Submit">
+      <form>
 
-    </form>
-    
+        <div class="mb-3">
+          <label for="bugType" class="form-label">Type of bug:</label>
+          <select class="form-select" name="bugTypes" id="BugType">
+            <option value="content">Content</option>
+            <option value="text">Text</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="url" class="form-label">URL:</label>
+          <input type="url" class="form-control" id="url">
+        </div>
+        <div class="mb-3">
+          <label for="screenshot" class="form-label">Upload screenshot (optional):</label>
+          <input type="file" class="form-control" id="screenshot" name="screenshot">
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description:</label>
+          <textarea name="description" class="form-control" rows="5"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+      </form>
+
+    </div>
+
     <script src="reportbug.js"></script>
   </body>
 </html>

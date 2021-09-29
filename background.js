@@ -19,7 +19,11 @@ chrome.contextMenus.onClicked.addListener(function(clickData){
 })
 
 // This part creates the badge (number of bugs on page)
+let badgeEnabled = true;
 let badgeAmount = 1; // replaced by value from db when the time comes
 let badgeAmountString = badgeAmount.toString();
-chrome.action.setBadgeText({text: badgeAmountString});
-chrome.action.setBadgeBackgroundColor({color: 'red'});
+
+if (badgeEnabled){
+  chrome.action.setBadgeText({text: badgeAmountString});
+  chrome.action.setBadgeBackgroundColor({color: 'red'});
+}
