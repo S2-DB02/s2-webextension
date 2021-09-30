@@ -14,7 +14,7 @@ chrome.contextMenus.removeAll(function() {
 chrome.contextMenus.onClicked.addListener(function(clickData){
   if (clickData.menuItemId == "reportBugItem"){
   chrome.windows.create({'url': 'reportbug.html', 'type': 'popup'
-  , "height": 600, "width": 600}, function(window) {})
+  , "height": 720, "width": 600}, function(window) {})
   }
 });
 

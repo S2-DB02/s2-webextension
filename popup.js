@@ -48,7 +48,7 @@ checkLogin();
 // Event listener for "Report bug" button
 document.getElementById("reportBugBtn").addEventListener("click", ()=>{
     chrome.windows.create({"url": "reportbug.html", "type": "popup"
-    , "height": 600, "width": 600}, function(window) {})
+    , "height": 720, "width": 600}, function(window) {})
 });
 
 // Event listener for "Ticket overview" button

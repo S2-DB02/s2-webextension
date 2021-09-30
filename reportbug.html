@@ -12,26 +12,38 @@
   </head>
   <body>
 
+    <nav class="navbar navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="images/icon32.png" alt="" width="32" height="32" class="d-inline-block align-text-top">
+          BAS World Bug Reporter
+        </a>
+      </div>
+    </nav>
+
     <div class="container">
 
       <h1>Report bug</h1>
 
-      <form>
+      <form action="localhost:" method="POST">
 
         <div class="mb-3">
           <label for="bugType" class="form-label">Type of bug:</label>
-          <select class="form-select" name="bugTypes" id="BugType">
-            <option value="content">Content</option>
-            <option value="text">Text</option>
+          <select class="form-select" name="bugTypes" id="Type">
+            <option value="0">Media</option>
+            <option value="1">Lay-out</option>
+            <option value="2">Translation</option>
+            <option value="3">Markup</option>
+            <option value="4">Other</option>
           </select>
         </div>
         <div class="mb-3">
-          <label for="url" class="form-label">URL:</label>
-          <input type="url" class="form-control" id="url">
+          <label for="title" class="form-label">Title:</label>
+          <input type="text" class="form-control" id="title">
         </div>
         <div class="mb-3">
           <label for="screenshot" class="form-label">Upload screenshot (optional):</label>
-          <input type="file" class="form-control" id="screenshot" name="screenshot">
+          <input type="file" class="form-control" id="screenshot" name="screenshot" accept="image/jpeg, image/png, image/bmp, image/gif">
         </div>
         <div class="mb-3">
           <label for="description" class="form-label">Description:</label>

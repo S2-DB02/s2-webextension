@@ -11,25 +11,43 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img src="images/icon32.png" alt="" width="32" height="32" class="d-inline-block align-text-top">
+            BAS World Bug Reporter
+          </a>
+        </div>
+    </nav>
+    
     <div class="container">
         <div class="row">
             <h1>Ticket overview</h1>
         </div>
 
         <div class="row">
-            <table>
-                <tr>
-                    <th>Ticket ID</th>
-                    <th>Type</th>
-                    <th>Priority</th>
-                    <th>Status</th>
-                    <th>Developer</th>
-                    <th>Date created</th>
-                </tr>
+            <table class="table table-striped table-hover" id="overviewTable">
+                <thead>
+                    <tr>
+                        <th scope="col">Ticket ID</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Priority</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Developer</th>
+                        <th scope="col">Date created</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+
+                </tbody>
 
             </table>
         </div>
     </div>
     
+    <script src="overview.js"></script>
 </body>
 </html>
