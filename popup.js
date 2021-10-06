@@ -47,7 +47,10 @@ checkLogin();
 
 // Event listener for "Report bug" button
 document.getElementById("reportBugBtn").addEventListener("click", ()=>{
-    chrome.windows.create({"url": "reportbug.html", "type": "popup"
+    chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
+        chrome.storage.local.set({ "url": tabs[0].url })
+      });
+    chrome.windows.create({'url': 'reportbug.html', 'type': 'popup'
     , "height": 720, "width": 600}, function(window) {})
 });
 

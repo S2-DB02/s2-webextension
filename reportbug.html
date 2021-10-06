@@ -25,30 +25,38 @@
 
       <h1>Report bug</h1>
 
-      <form action="localhost:" method="POST">
+      <form action="http://127.0.0.1:8000/api/ticket/" method="POST" enctype="multipart/form-data">
 
         <div class="mb-3">
           <label for="bugType" class="form-label">Type of bug:</label>
-          <select class="form-select" name="bugTypes" id="Type">
-            <option value="0">Media</option>
-            <option value="1">Lay-out</option>
-            <option value="2">Translation</option>
-            <option value="3">Markup</option>
-            <option value="4">Other</option>
+          <select class="form-select" name="type" required>
+            <option value="1">Media</option>
+            <option value="2">Lay-out</option>
+            <option value="3">Translation</option>
+            <option value="4">Markup</option>
+            <option value="5">Other</option>
           </select>
         </div>
         <div class="mb-3">
           <label for="title" class="form-label">Title:</label>
-          <input type="text" class="form-control" id="title">
+          <input type="text" class="form-control" name="name" required>
         </div>
         <div class="mb-3">
           <label for="screenshot" class="form-label">Upload screenshot (optional):</label>
-          <input type="file" class="form-control" id="screenshot" name="screenshot" accept="image/jpeg, image/png, image/bmp, image/gif">
+          <input type="file" class="form-control" name="photo" accept="image/jpeg, image/png, image/bmp, image/gif" disabled>
         </div>
         <div class="mb-3">
-          <label for="description" class="form-label">Description:</label>
-          <textarea name="description" class="form-control" rows="5"></textarea>
+          <label for="remark" class="form-label">Description:</label>
+          <textarea name="remark" class="form-control" rows="5" required></textarea>
         </div>
+
+        <!-- Hidden fields -->
+        <input type="hidden" name="URL" id="url-input" value="">
+        <input type="hidden" name="user_id" value="1">
+        <input type="hidden" name="status" value="1">
+        <input type="hidden" name="photo" value="test">
+        
+        <!-- Submit button -->
         <button type="submit" class="btn btn-primary">Submit</button>
 
       </form>
