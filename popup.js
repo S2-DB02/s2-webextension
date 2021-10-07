@@ -48,7 +48,7 @@ checkLogin();
 // Event listener for "Report bug" button
 document.getElementById("reportBugBtn").addEventListener("click", ()=>{
     chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
-        chrome.storage.local.set({ "url": tabs[0].url })
+        chrome.storage.local.set({ "bug_url": tabs[0].url })
       });
     chrome.windows.create({'url': 'reportbug.html', 'type': 'popup'
     , "height": 720, "width": 600}, function(window) {})
@@ -71,3 +71,16 @@ document.getElementById("logOutBtn").addEventListener("click", ()=>{
     chrome.storage.sync.remove("userEmail");
     checkLogin();
 });
+
+// Set form action destination URL
+function setUrl() {
+    if (xhr.readyState === 4) {
+        document.getElementById('login-form').action = 
+            JSON.parse(xhr.response)['url_api_user'];
+    }
+}
+
+let xhr = new XMLHttpRequest();
+xhr.onreadystatechange = setUrl;
+xhr.open("GET", chrome.runtime.getURL('/config.json'), true);
+xhr.send();

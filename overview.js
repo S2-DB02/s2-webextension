@@ -1,4 +1,4 @@
-async function getTickets(url) {
+async function getJSON(url) {
     try {
         const response = await fetch(url, {method: 'GET'});
   
@@ -9,12 +9,17 @@ async function getTickets(url) {
 }
 
 async function main() {
+
     let table = document.getElementById("overviewTable").getElementsByTagName('tbody')[0];
-    let tickets = await getTickets('http://127.0.0.1:8000/api/ticket/');
+
+    const configUrl = chrome.runtime.getURL('/config.json');
+    let apiTicketUrl = await getJSON(configUrl);
+    apiTicketUrl = apiTicketUrl['url_api_ticket'];
+    
+    let tickets = await getJSON(apiTicketUrl);
     tickets = tickets['data'];
 
     for (const ticket in tickets) {
-        console.log(ticket);
         // Create an empty <tr> element and add it to the 1st position of the table:
         let row = table.insertRow(-1);
 
