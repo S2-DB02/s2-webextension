@@ -19,7 +19,7 @@
     "permissions": [
       "contextMenus",
       "storage",
-      "tabs"
+      "activeTab"
     ],
     "icons": {
       "16": "/images/icon16.png",
