@@ -1,6 +1,4 @@
-// background.js
-
-// This part creates the context menu item and corresponding listener
+// This section creates the context menu item and corresponding listener
 let contextMenuItem = {
   "id": "reportBugItem",
   "title": "Rapporteer bug",
@@ -21,7 +19,7 @@ chrome.contextMenus.onClicked.addListener(function(clickData){
   }
 });
 
-// This part creates the badge (number of bugs on page)
+// This section creates the badge (number of bugs on page)
 let badgeAmount = 1; // replaced by value from db when the time comes
 let badgeAmountString = badgeAmount.toString();
 chrome.action.setBadgeBackgroundColor({color: 'red'});
