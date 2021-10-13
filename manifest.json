@@ -25,8 +25,5 @@
     "16": "/images/icon16.png",
     "32": "/images/icon32.png",
     "48": "/images/icon64.png"
-  },
-  "web_accessible_resources": [
-    "config.json"
-  ]
+  }
 }

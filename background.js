@@ -20,22 +20,48 @@ chrome.contextMenus.onClicked.addListener(function(clickData){
 });
 
 // This section creates the badge (number of bugs on page)
-let badgeAmount = 1; // replaced by value from db when the time comes
-let badgeAmountString = badgeAmount.toString();
-chrome.action.setBadgeBackgroundColor({color: 'red'});
-
-function getBadgeStatus() {
-  chrome.storage.sync.get("badgeEnabled", (data) => {
-    if (data.badgeEnabled == true){
-      chrome.action.setBadgeText({text: badgeAmountString});
-    } else {
-      chrome.action.setBadgeText({text: ""});
-    }
+/* function getBadgeStatus() {
+  const status = chrome.storage.sync.get("badgeEnabled", (data) => {
+    return data.badgeEnabled
   });
+  if (status == true) {
+    console.log(status);
+    return true;
+  } else {
+    return false;
+  }
 }
 
-getBadgeStatus();
+async function getJSON(url) {
+  try {
+      const response = await fetch(url, {method: 'GET'});
+
+      return response.json();
+  } catch (error) {
+      console.error(error);
+  }
+}
+
+async function setBadge() {
+  let tickets = await getJSON("http://127.0.0.1:8000/api/ticket/");
+  tickets = tickets['data'];
+  let badgeAmount = tickets.length;
+  badgeAmount = badgeAmount.toString();
+  chrome.action.setBadgeBackgroundColor({color: 'red'});
+
+  if (getBadgeStatus()){
+    chrome.action.setBadgeText({text: badgeAmount});
+  } else {
+    chrome.action.setBadgeText({text: ""});
+  }
+}
+
+setBadge();
 
 chrome.storage.onChanged.addListener(function(){
-  getBadgeStatus();
+  setBadge();
 });
+
+chrome.tabs.onActivated.addListener(function(){
+  setBadge();
+}); */
