@@ -1,4 +1,12 @@
 // This section creates the context menu item and corresponding listener
+async function getCurrentTabUrl() {
+  let queryOptions = { active: true, currentWindow: true };
+  let [tab] = await chrome.tabs.query(queryOptions);
+  return tab.url;
+}
+
+//console.log(await getCurrentTabUrl());
+
 let contextMenuItem = {
   "id": "reportBugItem",
   "title": "Report bug",
@@ -10,6 +18,7 @@ chrome.contextMenus.removeAll(function() {
 });
 
 chrome.contextMenus.onClicked.addListener(function(clickData){
+  //console.log(await getCurrentTabUrl);
   if (clickData.menuItemId == "reportBugItem"){
     chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
       chrome.storage.local.set({ "bug_url": tabs[0].url })

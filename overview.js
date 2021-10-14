@@ -18,10 +18,14 @@ async function main() {
 
     let table = document.getElementById("overviewTable").getElementsByTagName('tbody')[0];
     let currentTabUrl = await getCurrentTabUrl();
+    // URL is encoded twice
+    currentTabUrl = encodeURIComponent(currentTabUrl);
+    currentTabUrl = encodeURIComponent(currentTabUrl);
 
     const configUrl = chrome.runtime.getURL('/config.json');
     let apiTicketUrl = await getJSON(configUrl);
     apiTicketUrl = apiTicketUrl['url_api_ticket_page'];
+    apiTicketUrl = apiTicketUrl + currentTabUrl;
     
     let tickets = await getJSON(apiTicketUrl);
     tickets = tickets['data'];

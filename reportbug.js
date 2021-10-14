@@ -2,7 +2,11 @@
 
 // Get URL of the current active user window/tab
 chrome.storage.local.get("bug_url", (data) => {
-document.getElementById("url-input").value = data.bug_url;
+    let bug_url = data.bug_url;
+    // URL is encoded twice
+    bug_url = encodeURIComponent(bug_url);
+    bug_url = encodeURIComponent(bug_url);
+    document.getElementById("url-input").value = bug_url;
 });
 
 // Set form action destination URL
