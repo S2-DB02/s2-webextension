@@ -9,7 +9,7 @@
         
         <link rel="stylesheet" href="css/styles.css">
         <link rel="stylesheet" href="css/popup.css">
-        <title>Popup | BAS World Bug Reporter</title>
+        <title>Register | BAS World Bug Reporter</title>
     </head>
 
     <body>
@@ -27,13 +27,7 @@
 
             <h1>Register</h1>
 
-            <form action="" method="get">
-
-                <!-- Name -->
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name:</label>
-                    <input type="text" class="form-control" name="name" required>
-                </div>
+            <form id="register-form" action="http://127.0.0.1:8000/api/user/" method="POST">
 
                 <!-- Email -->
                 <div class="mb-3">
@@ -41,11 +35,8 @@
                     <input type="email" class="form-control" name="email" required>
                 </div>
 
-                <!-- Password -->
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password:</label>
-                    <input type="password" class="form-control" name="password" required>
-                </div>
+                <!-- Hidden fields -->
+                <input type="hidden" name="name" id="name-input" value="">
 
                 <!-- Submit button -->
                 <button type="submit" class="btn btn-primary">Submit</button>

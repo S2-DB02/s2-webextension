@@ -1,7 +1,7 @@
 // This section creates the context menu item and corresponding listener
 let contextMenuItem = {
   "id": "reportBugItem",
-  "title": "Rapporteer bug",
+  "title": "Report bug",
   "contexts": ["page", "selection"]
 };
 
