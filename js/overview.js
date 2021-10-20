@@ -1,4 +1,4 @@
-import {apiGetPageTickets} from './modules/api_calls.js';
+import {apiGetPageTickets} from '../modules/api_calls.js';
 
 async function main() {
 

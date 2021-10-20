@@ -50,7 +50,7 @@ document.getElementById("reportBugBtn").addEventListener("click", ()=>{
     chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
         chrome.storage.local.set({ "bug_url": tabs[0].url })
       });
-    chrome.windows.create({'url': 'reportbug.html', 'type': 'popup'
+    chrome.windows.create({'url': '../views/reportbug.html', 'type': 'popup'
     , "height": 720, "width": 600}, function(window) {})
 });
 
@@ -82,5 +82,5 @@ function setUrl() {
 
 let xhr = new XMLHttpRequest();
 xhr.onreadystatechange = setUrl;
-xhr.open("GET", chrome.runtime.getURL('/config.json'), true);
+xhr.open("GET", chrome.runtime.getURL('../config.json'), true);
 xhr.send();

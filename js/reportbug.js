@@ -1,10 +1,10 @@
 // reportbug.js
-import {apiGetAsJSON} from "./modules/api_calls.js";
+import {apiGetAsJSON} from "../modules/api_calls.js";
 
 async function main() {
 
     // Get form api url from config file
-    const configUrl = chrome.runtime.getURL('/config.json');
+    const configUrl = chrome.runtime.getURL('./config.json');
     let apiTicketUrl = await apiGetAsJSON(configUrl);
     apiTicketUrl = apiTicketUrl['url_api_ticket'];
     document.getElementById('report-form').action = apiTicketUrl;

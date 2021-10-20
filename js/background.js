@@ -1,5 +1,5 @@
-import {getCurrentTabUrl} from './modules/tabs.js';
-import {apiGetPageTickets} from './modules/api_calls.js';
+import {getCurrentTabUrl} from '../modules/tabs.js';
+import {apiGetPageTickets} from '../modules/api_calls.js';
 
 async function getCurrentTab() {
   let queryOptions = { active: true, currentWindow: true };
@@ -30,7 +30,7 @@ async function main(){
       chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
         chrome.storage.local.set({ "bug_url": tabs[0].url })
       });
-      chrome.windows.create({'url': 'reportbug.html', 'type': 'popup'
+      chrome.windows.create({'url': '../views/reportbug.html', 'type': 'popup'
       , "height": 720, "width": 600}, function(window) {})
     }
   });
