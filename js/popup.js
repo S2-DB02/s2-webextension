@@ -39,6 +39,7 @@ function checkLogin()
         } else {
             userEmail = null;
         }
+
         toggleLogin();
     });
 }
@@ -62,8 +63,16 @@ document.getElementById("overviewBtn").addEventListener("click", ()=>{
 // Event listener for "Log in" button
 document.getElementById("logInBtn").addEventListener("click", ()=>{
     userEmail = document.getElementById("email").value;
-    chrome.storage.sync.set({ "userEmail": userEmail });
-    checkLogin();
+    let uEmail = userEmail.split('@').slice(1);
+    let allowedDomains = [ 'basworld.com', 'bastrucks.com'];
+    allowedDomains.forEach(function(item)
+        {
+            if(uEmail == item){
+                chrome.storage.sync.set({ "userEmail": userEmail });
+                checkLogin();
+            }
+        }
+    );
 });
 
 // Event listener for "Log out" button
