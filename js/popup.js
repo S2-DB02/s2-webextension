@@ -44,7 +44,14 @@ function checkLogin()
     });
 }
 
+// Safety check login
 checkLogin();
+
+// Register
+function createUser() 
+{
+    
+}
 
 // Event listener for "Report bug" button
 document.getElementById("reportBugBtn").addEventListener("click", ()=>{
@@ -82,6 +89,13 @@ document.getElementById("logOutBtn").addEventListener("click", ()=>{
     chrome.storage.sync.remove("userEmail");
     checkLogin();
 });
+
+
+// Event listener for "Register" button
+document.getElementById("registerSubmitBtn").addEventListener("click", ()=>{
+
+})
+
 
 // Set form action destination URL
 function setUrl() {

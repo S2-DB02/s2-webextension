@@ -1,3 +1,5 @@
+import {apiGetUserDAta} from '../modules/api_calls.js';
+
 var password = document.getElementById("password")
   , confirm_password = document.getElementById("confirm_password");
 
@@ -9,7 +11,7 @@ function validatePassword(){
     confirm_password.setCustomValidity('');
     //minimum password length validation  
     if(password.value.length < 8) {  
-        document.getElementById("message").innerHTML = "**Password length must be atleast 8 characters";  
+        document.getElementById("message").innerHTML = "**Password length must be at least 8 characters";  
         return false;
     }
     else {
@@ -17,6 +19,7 @@ function validatePassword(){
         // Event listener for "register" button
         document.getElementById("registerSubmitBtn").addEventListener("click", ()=>{
             userEmail = document.getElementById("email").value;
+            console.log(userEmail)
             let uEmail = userEmail.split('@').slice(1);
             let allowedDomains = [ 'basworld.com', 'bastrucks.com'];
             allowedDomains.forEach(function(item)

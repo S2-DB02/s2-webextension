@@ -26,3 +26,12 @@ export async function apiGetPageTickets() {
     tickets = tickets['data'];
     return tickets;
 }
+
+
+export async function apiGetUserData() {
+    const configUrl = await achrome.runtime.getURL('/config.json');
+    let apiTicketUrl = await apiGetAsJSON(configUrl);
+    apiUserUrl = apiUserUrl['url_api_user']
+
+    // Check for user existence
+}
