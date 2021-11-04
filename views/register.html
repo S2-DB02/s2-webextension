@@ -34,15 +34,25 @@
                     <label for="email" class="form-label">Email:</label>
                     <input type="email" class="form-control" name="email" required>
                 </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" class="form-control pass-auth" name="password" id="password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password again:</label>
+                    <input type="password" class="form-control" name="password" id="confirm_password" required>
+                    <span id = "message" style="color:red"> </span> <br><br>
+                </div>
+                  
 
                 <!-- Hidden fields -->
                 <input type="hidden" name="name" id="name-input" value="">
 
                 <!-- Submit button -->
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" id="registerSubmitBtn">Register</button>
             </form>
 
         </div>
-    
+        <script src="../js/register.js"></script>
     </body>
 </html>
