@@ -39,6 +39,7 @@ function checkLogin()
         } else {
             userEmail = null;
         }
+
         toggleLogin();
     });
 }
@@ -50,7 +51,7 @@ document.getElementById("reportBugBtn").addEventListener("click", ()=>{
     chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
         chrome.storage.local.set({ "bug_url": tabs[0].url })
       });
-    chrome.windows.create({'url': 'reportbug.html', 'type': 'popup'
+    chrome.windows.create({'url': '../views/reportbug.html', 'type': 'popup'
     , "height": 720, "width": 600}, function(window) {})
 });
 
@@ -59,11 +60,36 @@ document.getElementById("overviewBtn").addEventListener("click", ()=>{
     // Insert code to open new tab with ticket overview dashboard
 });
 
+// Event listener for "Register" button
+document.getElementById("RegisterBtn").addEventListener("click", ()=>{
+    chrome.windows.create({'url': '../views/register.html', 'type': 'popup'
+    , "height": 720, "width": 600}, function(window) {})
+    userEmail = document.getElementById("email").value;
+    let uEmail = userEmail.split('@').slice(1);
+    let allowedDomains = [ 'basworld.com', 'bastrucks.com'];
+    allowedDomains.forEach(function(item)
+        {
+            if(uEmail == item){
+                chrome.storage.sync.set({ "userEmail": userEmail });
+                checkLogin();
+            }
+        }
+    );
+});
+
 // Event listener for "Log in" button
 document.getElementById("logInBtn").addEventListener("click", ()=>{
     userEmail = document.getElementById("email").value;
-    chrome.storage.sync.set({ "userEmail": userEmail });
-    checkLogin();
+    let uEmail = userEmail.split('@').slice(1);
+    let allowedDomains = [ 'basworld.com', 'bastrucks.com'];
+    allowedDomains.forEach(function(item)
+        {
+            if(uEmail == item){
+                chrome.storage.sync.set({ "userEmail": userEmail });
+                checkLogin();
+            }
+        }
+    );
 });
 
 // Event listener for "Log out" button
@@ -82,5 +108,5 @@ function setUrl() {
 
 let xhr = new XMLHttpRequest();
 xhr.onreadystatechange = setUrl;
-xhr.open("GET", chrome.runtime.getURL('/config.json'), true);
+xhr.open("GET", chrome.runtime.getURL('../config.json'), true);
 xhr.send();
