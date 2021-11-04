@@ -60,22 +60,7 @@ document.getElementById("overviewBtn").addEventListener("click", ()=>{
     // Insert code to open new tab with ticket overview dashboard
 });
 
-// Event listener for "Register" button
-document.getElementById("RegisterBtn").addEventListener("click", ()=>{
-    chrome.windows.create({'url': '../views/register.html', 'type': 'popup'
-    , "height": 720, "width": 600}, function(window) {})
-    userEmail = document.getElementById("email").value;
-    let uEmail = userEmail.split('@').slice(1);
-    let allowedDomains = [ 'basworld.com', 'bastrucks.com'];
-    allowedDomains.forEach(function(item)
-        {
-            if(uEmail == item){
-                chrome.storage.sync.set({ "userEmail": userEmail });
-                checkLogin();
-            }
-        }
-    );
-});
+
 
 // Event listener for "Log in" button
 document.getElementById("logInBtn").addEventListener("click", ()=>{
