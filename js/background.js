@@ -2,21 +2,25 @@ import {getCurrentTabUrl} from '../modules/tabs.js';
 import {apiGetPageTickets} from '../modules/api_calls.js';
 
 async function getCurrentTab() {
-  let queryOptions = { active: true, currentWindow: true };
+  let queryOptions = {
+    active: true,
+    currentWindow: true
+  };
   let [tab] = await chrome.tabs.query(queryOptions);
   return tab;
 }
 
 function getAmountTicketsOnPage() {
-  let queryOptions = { active: true, currentWindow: true };
-  chrome.tabs.query(queryOptions, function(tabs){
+  let queryOptions = {
+    active: true,
+    currentWindow: true
+  };
+  chrome.tabs.query(queryOptions, function(tabs) {
 
   });
+}
 
-
-
-
-async function main(){
+async function main() {
   let contextMenuItem = {
     "id": "reportBugItem",
     "title": "Report bug",
@@ -26,14 +30,31 @@ async function main(){
   chrome.contextMenus.removeAll(function() {
     chrome.contextMenus.create(contextMenuItem);
   });
-  
-  chrome.contextMenus.onClicked.addListener(function(clickData){
-    if (clickData.menuItemId == "reportBugItem"){
-      chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
-        chrome.storage.local.set({ "bug_url": tabs[0].url })
+
+  chrome.contextMenus.onClicked.addListener(function(clickData, tab) {
+    if (clickData.menuItemId == "reportBugItem") {
+      chrome.tabs.query({
+        currentWindow: true,
+        active: true
+      }, function(tabs) {
+        chrome.storage.local.set({
+          "bug_url": tabs[0].url
+        })
       });
-      chrome.windows.create({'url': '../views/reportbug.html', 'type': 'popup'
-      , "height": 720, "width": 600}, function(window) {})
+
+      chrome.tabs.captureVisibleTab(null, null, (dataUrl) => {
+        chrome.windows.create({
+          'url': '../views/reportbug.html',
+          'type': 'popup',
+          "height": 720,
+          "width": 600
+        }, function(window) {
+          console.log(dataUrl);
+          chrome.storage.local.set({
+            "report_img": dataUrl
+          })
+        });
+      });
     }
   });
 }
@@ -55,11 +76,13 @@ function getBadgeStatus() {
 
 async function getJSON(url) {
   try {
-      const response = await fetch(url, {method: 'GET'});
+    const response = await fetch(url, {
+      method: 'GET'
+    });
 
-      return response.json();
+    return response.json();
   } catch (error) {
-      console.error(error);
+    console.error(error);
   }
 }
 
@@ -68,22 +91,27 @@ async function setBadge() {
   tickets = tickets['data'];
   let badgeAmount = tickets.length;
   badgeAmount = badgeAmount.toString();
-  chrome.action.setBadgeBackgroundColor({color: 'red'});
+  chrome.action.setBadgeBackgroundColor({
+    color: 'red'
+  });
 
-  if (getBadgeStatus()){
-    chrome.action.setBadgeText({text: badgeAmount});
+  if (getBadgeStatus()) {
+    chrome.action.setBadgeText({
+      text: badgeAmount
+    });
   } else {
-    chrome.action.setBadgeText({text: ""});
+    chrome.action.setBadgeText({
+      text: ""
+    });
   }
 }
 
 setBadge();
 
-chrome.storage.onChanged.addListener(function(){
+chrome.storage.onChanged.addListener(function() {
   setBadge();
 });
 
-chrome.tabs.onActivated.addListener(function(){
+chrome.tabs.onActivated.addListener(function() {
   setBadge();
 });
-}
