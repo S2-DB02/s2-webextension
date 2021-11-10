@@ -63,7 +63,7 @@ document.getElementById("registerBtn").addEventListener("click", ()=>{
         chrome.storage.local.set({ "bug_url2": tabs[0].url })
       });
     chrome.windows.create({'url': '../views/register.html', 'type': 'popup'
-    , "height": 720, "width": 600}, function(window) {})
+    , "height": 620, "width": 400}, function(window) {})
 });
 
 
