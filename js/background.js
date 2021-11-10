@@ -12,7 +12,9 @@ function getAmountTicketsOnPage() {
   chrome.tabs.query(queryOptions, function(tabs){
 
   });
-}
+
+
+
 
 async function main(){
   let contextMenuItem = {
@@ -84,3 +86,4 @@ chrome.storage.onChanged.addListener(function(){
 chrome.tabs.onActivated.addListener(function(){
   setBadge();
 });
+}

@@ -1,4 +1,16 @@
-import {apiGetUserDAta} from '../modules/api_calls.js';
+import {apiGetUserData} from '../modules/api_calls.js';
+import {apiGetAsJSON} from '../modules/api_calls.js';
+
+
+async function main() {
+  // Get form api url from config file
+  const configUrl = chrome.runtime.getURL('./config.json');
+  let apiUserUrl = await apiGetAsJSON(configUrl);
+  apiUserUrl = apiUserUrl['url_api_user'];
+  document.getElementById('register-form').action = apiUserUrl;
+}
+
+main();
 
 var password = document.getElementById("password")
   , confirm_password = document.getElementById("confirm_password");
@@ -18,19 +30,21 @@ function validatePassword(){
         document.getElementById("message").innerHTML = "";
         // Event listener for "register" button
         document.getElementById("registerSubmitBtn").addEventListener("click", ()=>{
-            userEmail = document.getElementById("email").value;
+            let userEmail = document.getElementById("email").value;
             console.log(userEmail)
             let uEmail = userEmail.split('@').slice(1);
             let allowedDomains = [ 'basworld.com', 'bastrucks.com'];
             allowedDomains.forEach(function(item)
                 {
-                    if(uEmail == item){
-                        chrome.storage.sync.set({ "userEmail": userEmail });
-                        //Register user
-                        createUser();
-                        //Log in after register
-                        checkLogin();
-                    }
+                  if(uEmail == item){
+                      chrome.storage.sync.set({ "userEmail": userEmail });
+                      
+                      //Register user
+                      document.getElementById("register-form").submit();
+                                        
+                      //alert("Succesfully registered!");
+                      
+                  }
                 }
             );
         });

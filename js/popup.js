@@ -47,11 +47,6 @@ function checkLogin()
 // Safety check login
 checkLogin();
 
-// Register
-function createUser() 
-{
-    
-}
 
 // Event listener for "Report bug" button
 document.getElementById("reportBugBtn").addEventListener("click", ()=>{
@@ -61,6 +56,16 @@ document.getElementById("reportBugBtn").addEventListener("click", ()=>{
     chrome.windows.create({'url': '../views/reportbug.html', 'type': 'popup'
     , "height": 720, "width": 600}, function(window) {})
 });
+
+// Event listener for "Report bug" button
+document.getElementById("registerBtn").addEventListener("click", ()=>{
+    chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
+        chrome.storage.local.set({ "bug_url2": tabs[0].url })
+      });
+    chrome.windows.create({'url': '../views/register.html', 'type': 'popup'
+    , "height": 720, "width": 600}, function(window) {})
+});
+
 
 // Event listener for "Ticket overview" button
 document.getElementById("overviewBtn").addEventListener("click", ()=>{
@@ -90,11 +95,6 @@ document.getElementById("logOutBtn").addEventListener("click", ()=>{
     checkLogin();
 });
 
-
-// Event listener for "Register" button
-document.getElementById("registerSubmitBtn").addEventListener("click", ()=>{
-
-})
 
 
 // Set form action destination URL
