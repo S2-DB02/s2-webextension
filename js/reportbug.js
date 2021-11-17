@@ -12,6 +12,7 @@ async function main() {
     // Get URL of the current active user window/tab
     chrome.storage.local.get("bug_url", (data) => {
         let bug_url = data.bug_url;
+        console.log(bug_url);
         // URL is encoded twice
         bug_url = encodeURIComponent(bug_url);
         bug_url = encodeURIComponent(bug_url);

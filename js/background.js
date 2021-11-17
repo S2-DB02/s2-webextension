@@ -22,7 +22,7 @@ async function main(){
     "title": "Report bug",
     "contexts": ["page", "selection"]
   };
-
+  console.log("getCurrentTab");
   chrome.contextMenus.removeAll(function() {
     chrome.contextMenus.create(contextMenuItem);
   });

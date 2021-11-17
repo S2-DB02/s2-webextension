@@ -38,4 +38,28 @@ async function main() {
     console.log("test")
     validateEmail();
   });
+
+  window.addEventListener('load', (event) => {
+    chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
+      chrome.storage.local.set({ "bug_url": tabs[0].url })
+    });
+      chrome.storage.local.get("bug_url", (data) => {
+        let bug_url = data.bug_url;
+        console.log(bug_url);
+        let uURL = bug_url.split('www.').slice(1);
+        console.log(uURL[0]);
+
+        if (uURL[0].includes("bastrucks.com/")) {
+          console.log("true");
+          window.location.replace("./popup.html");
+        }
+        else{
+          console.log("false")
+        }
+        
+    });    
+  });
+
+
+
   password.onchange = validatePassword;
