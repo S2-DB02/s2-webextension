@@ -1,5 +1,6 @@
 {
     "url_api_user": "http://127.0.0.1:8000/api/user/",
     "url_api_ticket": "http://127.0.0.1:8000/api/ticket/",
-    "url_api_ticket_page": "http://127.0.0.1:8000/api/ticket/url/"
+    "url_api_ticket_page": "http://127.0.0.1:8000/api/ticket/url/",
+    "url_api_leaderboard": "http://127.0.0.1:8000/api/leaderboard"
 }
