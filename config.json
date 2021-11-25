@@ -1,6 +1,6 @@
 {
-    "url_api_user": "http://127.0.0.1:8000/api/user/",
-    "url_api_ticket": "http://127.0.0.1:8000/api/ticket/",
-    "url_api_ticket_page": "http://127.0.0.1:8000/api/ticket/url/",
-    "url_api_leaderboard": "http://127.0.0.1:8000/api/leaderboard"
+    "url_api_user": "https://bugreporter.shiruvaaa.net/api/user/",
+    "url_api_ticket": "https://bugreporter.shiruvaaa.net/api/ticket/",
+    "url_api_ticket_page": "https://bugreporter.shiruvaaa.net]/api/ticket/url/",
+    "url_api_leaderboard": "https://bugreporter.shiruvaaa.net]/api/leaderboard"
 }
