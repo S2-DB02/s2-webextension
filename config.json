@@ -1,6 +1,7 @@
 {
-    "url_api_user": "http://127.0.0.1:8000/api/user/",
-    "url_api_user_login": "http://127.0.0.1:8000/api/user/login",
-    "url_api_ticket": "http://127.0.0.1:8000/api/ticket/",
-    "url_api_ticket_page": "http://127.0.0.1:8000/api/ticket/url/"
+    "url_api_user": "https://bugreporter.shiruvaaa.net/api/user/",
+    "url_api_user_login": "https://bugreporter.shiruvaaa.net/user/login",
+    "url_api_ticket": "https://bugreporter.shiruvaaa.net/ticket/",
+    "url_api_ticket_page": "https://bugreporter.shiruvaaa.net/ticket/url/",
+    "url_api_leaderboard": "https://bugreporter.shiruvaaa.net/api/leaderboard/"
 }
