@@ -20,7 +20,10 @@
   "permissions": [
     "contextMenus",
     "storage",
-    "activeTab"
+    "activeTab",
+     "tabs",
+     "desktopCapture",
+     "tabCapture"
   ],
   "icons": {
     "16": "/images/icon16.png",

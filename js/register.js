@@ -9,8 +9,8 @@ async function main() {
   apiUserUrl = apiUserUrl['url_api_user'];
   document.getElementById('register-form').action = apiUserUrl;
 }
-
 main();
+
 
 var password = document.getElementById("password")
   , confirm_password = document.getElementById("confirm_password");
@@ -21,35 +21,14 @@ function validatePassword(){
   } else {
       //Passwords match
     confirm_password.setCustomValidity('');
-    //minimum password length validation  
-    if(password.value.length < 8) {  
-        document.getElementById("message").innerHTML = "**Password length must be at least 8 characters";  
-        return false;
-    }
-    else {
+    //minimum password length validation
+    if(password.value.length < 8) {
+        document.getElementById("message").innerHTML = "**password length must be at least 8 characters";
+        document.getElementById("registerSubmitBtn").disabled = true;
+    }else{
         document.getElementById("message").innerHTML = "";
-        // Event listener for "register" button
-        document.getElementById("registerSubmitBtn").addEventListener("click", ()=>{
-            let userEmail = document.getElementById("email").value;
-            console.log(userEmail)
-            let uEmail = userEmail.split('@').slice(1);
-            let allowedDomains = [ 'basworld.com', 'bastrucks.com'];
-            allowedDomains.forEach(function(item)
-                {
-                  if(uEmail == item){
-                      chrome.storage.sync.set({ "userEmail": userEmail });
-                      
-                      //Register user
-                      document.getElementById("register-form").submit();
-                                        
-                      //alert("Succesfully registered!");
-                      
-                  }
-                }
-            );
-        });
-    }  
-    
+        document.getElementById("registerSubmitBtn").disabled = false;
+    }
   }
 }
 
