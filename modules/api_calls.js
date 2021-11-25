@@ -36,8 +36,6 @@ export async function apiGetPagePoints() {
     
     // Get users from database via API
     let users = await apiGetAsJSON(apiPointsUrl);
-    users = users['data'];
-    console.log(users);
     return users;
 }
 
