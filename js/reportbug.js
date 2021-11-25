@@ -9,8 +9,10 @@ async function main() {
   apiTicketUrl = apiTicketUrl['url_api_ticket'];
   document.getElementById('report-form').action = apiTicketUrl;
 
-  chrome.storage.local.get("report_img", (data) => {
-    document.getElementsByClassName("screenshot")[0].src = data.report_img;
+
+  chrome.storage.local.get("report_img", (imgdata) => {
+    document.getElementsByClassName("screenshot")[0].src = imgdata.report_img;
+    document.getElementById("screenshotinput").value = imgdata.report_img;
   });
 
   // Get URL of the current active user window/tab
