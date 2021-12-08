@@ -66,7 +66,10 @@ checkLogin();
 document.getElementById("reportBugBtn").addEventListener("click", ()=>{
     chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
         chrome.storage.local.set({ "bug_url": tabs[0].url })
-      });
+    });
+    chrome.tabs.captureVisibleTab((data) => {
+        chrome.storage.local.set({ "report_img": data })
+    })
     chrome.windows.create({'url': '../views/reportbug.html', 'type': 'popup'
     , "height": 720, "width": 600}, function(window) {})
 });
