@@ -42,12 +42,12 @@ export async function apiGetLoggedInUser() {
     // Get URL from current tab and encode for transmission to API
 
     const configUrl = chrome.runtime.getURL('/config.json');
-    let apiPointsUrl = await apiGetAsJSON(configUrl);
-    apiPointsUrl = apiPointsUrl['url_api_LoggedInUser'];
+    let apiLoggedsUrl = await apiGetAsJSON(configUrl);
+    apiLoggedsUrl = apiLoggedsUrl['url_api_LoggedInUser'];
     
     // Get users from database via API
-    let users = await apiGetAsJSON(apiPointsUrl);
-    return users;
+    let LoggedUser = await apiGetAsJSON(apiLoggedsUrl);
+    return LoggedUser;
 }
 export async function apiGetUserData() {
     const configUrl = await achrome.runtime.getURL('/config.json');
