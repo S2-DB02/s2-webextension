@@ -115,3 +115,46 @@ chrome.storage.onChanged.addListener(function() {
 chrome.tabs.onActivated.addListener(function() {
   setBadge();
 });
+chrome.runtime.onInstalled.addListener(function(details) {
+    if ((details.reason === 'install') || (details.reason === 'update'))
+    {
+      //chrome.tabs.create("www.google.com")
+        refreshBrowser('register', true);
+    }
+});
+
+function refreshBrowser(target, bringToForeground) {
+    if (target !== 'register') return;
+    chrome.windows.getAll({ populate: true }, function(windows)
+    {
+        var foundExisting = false;
+        windows.forEach(function(win)
+        {
+            win.tabs.forEach(function(tab)
+            {
+                // Ignore tabs not matching the target.
+                if (target === 'register') {
+                    if (!/https:\/\/(mail|inbox)\.google\.com/.test(tab.url)) return;
+                }
+                else
+                {
+                    return; // Unknown target.
+                }
+                // Reload the matching tab.
+                chrome.tabs.reload(tab.id); // If this is the first one found, activate it.
+                if (bringToForeground && !foundExisting)
+                {
+                    chrome.tabs.update(tab.id, { active: true }); }
+                foundExisting = true;
+            });
+        });
+        // If no gmail tab found, just open a new one.
+        if (bringToForeground && !foundExisting)
+        {
+            //chrome.tabs.create( views('../views/register'));
+             chrome.tabs.create({
+                url: '/views/register.html'
+             });
+        }
+    });
+}
