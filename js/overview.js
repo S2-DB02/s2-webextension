@@ -5,6 +5,13 @@ async function main() {
     let table = document.getElementById("overviewTable").getElementsByTagName('tbody')[0];
 
     const tickets = await apiGetPageTickets();
+    const types = [
+        "Media",
+        "Lay-out",
+        "Translation",
+        "Markup",
+        "Other"
+    ]
 
     // Fill table with fetched tickets
     for (const ticket in tickets) {
@@ -16,16 +23,12 @@ async function main() {
         let cell2 = row.insertCell(1);
         let cell3 = row.insertCell(2);
         let cell4 = row.insertCell(3);
-        let cell5 = row.insertCell(4);
-        let cell6 = row.insertCell(5);
 
         // Add some text to the new cells:
         cell1.innerHTML = tickets[ticket]['name'];
-        cell2.innerHTML = tickets[ticket]['type'];
-        cell3.innerHTML = tickets[ticket]['priority'];
-        cell4.innerHTML = tickets[ticket]['status'];
-        cell5.innerHTML = tickets[ticket]['developer'];
-        cell6.innerHTML = tickets[ticket]['created_at'];
+        cell2.innerHTML = types[tickets[ticket]['type'] - 1];
+        cell3.innerHTML = new Date(tickets[ticket]['created_at']).toLocaleString('nl-NL', { timeZone: 'Europe/Amsterdam' });
+        cell4.innerHTML = tickets[ticket]['remark'];
     }
 }
 

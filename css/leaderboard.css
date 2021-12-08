@@ -1,9 +1,8 @@
-body{
-    width:750px;
-}
-
 .buttonBack{
  text-align: center;
  margin-top: 10px;
  margin-bottom: 10px;
+}
+.currentUser{
+    font-weight: bold;
 }
