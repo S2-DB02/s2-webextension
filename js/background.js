@@ -21,15 +21,8 @@ function getAmountTicketsOnPage() {
 }
 
 async function main() {
-  let contextMenuItem = {
-    "id": "reportBugItem",
-    "title": "Report bug",
-    "contexts": ["page", "selection"]
-  };
-  console.log("getCurrentTab");
-  chrome.contextMenus.removeAll(function() {
-    chrome.contextMenus.create(contextMenuItem);
-  });
+
+  ReportBugInContextMenu();
 
   chrome.contextMenus.onClicked.addListener(function(clickData, tab) {
     if (clickData.menuItemId == "reportBugItem") {
@@ -109,7 +102,8 @@ async function setBadge() {
 setBadge();
 
 chrome.storage.onChanged.addListener(function() {
-  setBadge();
+  //setBadge();
+  ReportBugInContextMenu();
 });
 
 chrome.tabs.onActivated.addListener(function() {
@@ -122,6 +116,23 @@ chrome.runtime.onInstalled.addListener(function(details) {
         refreshBrowser('register', true);
     }
 });
+
+function ReportBugInContextMenu() {
+  let contextMenuItem = {
+    "id": "reportBugItem",
+    "title": "Report bug",
+    "contexts": ["page", "selection"]
+  };
+
+  chrome.contextMenus.removeAll(function() {
+    // See if user is logged in
+    chrome.storage.sync.get("userEmail", (data) => {
+      if (data.userEmail != null){
+        chrome.contextMenus.create(contextMenuItem);
+      }
+    });
+  });
+}
 
 function refreshBrowser(target, bringToForeground) {
     if (target !== 'register') return;
