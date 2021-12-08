@@ -3,5 +3,6 @@
     "url_api_user_login": "https://bugreporter.shiruvaaa.net/api/user/login",
     "url_api_ticket": "https://bugreporter.shiruvaaa.net/api/ticket/",
     "url_api_ticket_page": "https://bugreporter.shiruvaaa.net/api/ticket/url/",
-    "url_api_leaderboard": "https://bugreporter.shiruvaaa.net/api/leaderboard/"
+    "url_api_leaderboard": "https://bugreporter.shiruvaaa.net/api/leaderboard/",
+    "url_api_LoggedInUser": "https://bugreporter.shiruvaaa.net/api/LoggedInUser"
 }
