@@ -52,6 +52,18 @@ async function main() {
     bug_url = encodeURIComponent(bug_url);
     document.getElementById("url-input").value = bug_url;
   });
+
+  // Get ID of the current active user
+  chrome.storage.sync.get("userId", (data) => {
+    let userId = data.userId;
+    document.getElementById("userId-input").value = userId;
+  });
+
+  // Get token of the current active user
+  chrome.storage.sync.get("apiToken", (data) => {
+    let apiToken = data.apiToken;
+    document.getElementById("api_token_input").value = apiToken;
+  });
 }
 
 main();

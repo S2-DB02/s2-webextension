@@ -55,60 +55,60 @@ async function main() {
 main();
 
 // This section creates the badge (number of bugs on page)
-function getBadgeStatus() {
-  const status = chrome.storage.sync.get("badgeEnabled", (data) => {
-    return data.badgeEnabled
-  });
-  if (status == true) {
-    console.log(status);
-    return true;
-  } else {
-    return false;
-  }
-}
+// function getBadgeStatus() {
+//   const status = chrome.storage.sync.get("badgeEnabled", (data) => {
+//     return data.badgeEnabled
+//   });
+//   if (status == true) {
+//     console.log(status);
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
 
-async function getJSON(url) {
-  try {
-    const response = await fetch(url, {
-      method: 'GET'
-    });
+// async function getJSON(url) {
+//   try {
+//     const response = await fetch(url, {
+//       method: 'GET'
+//     });
 
-    return response.json();
-  } catch (error) {
-    console.error(error);
-  }
-}
+//     return response.json();
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
 
-async function setBadge() {
-  let tickets = await getJSON("http://127.0.0.1:8000/api/ticket/");
-  tickets = tickets['data'];
-  let badgeAmount = tickets.length;
-  badgeAmount = badgeAmount.toString();
-  chrome.action.setBadgeBackgroundColor({
-    color: 'red'
-  });
+// async function setBadge() {
+//   let tickets = await getJSON("http://127.0.0.1:8000/api/ticket/");
+//   tickets = tickets['data'];
+//   let badgeAmount = tickets.length;
+//   badgeAmount = badgeAmount.toString();
+//   chrome.action.setBadgeBackgroundColor({
+//     color: 'red'
+//   });
 
-  if (getBadgeStatus()) {
-    chrome.action.setBadgeText({
-      text: badgeAmount
-    });
-  } else {
-    chrome.action.setBadgeText({
-      text: ""
-    });
-  }
-}
+//   if (getBadgeStatus()) {
+//     chrome.action.setBadgeText({
+//       text: badgeAmount
+//     });
+//   } else {
+//     chrome.action.setBadgeText({
+//       text: ""
+//     });
+//   }
+// }
 
-setBadge();
+// setBadge();
 
-chrome.storage.onChanged.addListener(function() {
-  //setBadge();
-  ReportBugInContextMenu();
-});
+// chrome.storage.onChanged.addListener(function() {
+//   //setBadge();
+//   ReportBugInContextMenu();
+// });
 
-chrome.tabs.onActivated.addListener(function() {
-  setBadge();
-});
+// chrome.tabs.onActivated.addListener(function() {
+//   setBadge();
+// });
 chrome.runtime.onInstalled.addListener(function(details) {
     if ((details.reason === 'install') || (details.reason === 'update'))
     {
