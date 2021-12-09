@@ -131,7 +131,7 @@ document.forms['login-form'].addEventListener('submit', (event) => {
             alert(body["message"]);
         }
         else {
-            alert("API response was not valid. Try again.");
+            alert("API response was empty. Try again.");
         }
     }).catch((error) => {
         alert("API response was not valid. Try again.");
