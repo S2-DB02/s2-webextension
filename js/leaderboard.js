@@ -4,6 +4,11 @@ async function main() {
 
     let table = document.getElementById("LeaderboardTable").getElementsByTagName('tbody')[0];
 
+    let userId = chrome.storage.sync.get("userId", (data) => {
+        userId = data.userId;
+        return userId;
+      });
+
     const users = await apiGetPagePoints();
     let count = 1;
     // Fill table with fetched tickets
@@ -22,7 +27,7 @@ async function main() {
         cell3.innerHTML = users[User]['points'];
         count = count + 1;
     }
-    const currentUser = await apiGetLoggedInUser();
+    const currentUser = await apiGetLoggedInUser(userId);
     let row = table.insertRow(-1);
 
         // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
