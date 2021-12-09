@@ -38,7 +38,17 @@ export async function apiGetPagePoints() {
     let users = await apiGetAsJSON(apiPointsUrl);
     return users;
 }
+export async function apiGetLoggedInUser(id) {
+    // Get URL from current tab and encode for transmission to API
 
+    const configUrl = chrome.runtime.getURL('/config.json');
+    let apiLoggedsUrl = await apiGetAsJSON(configUrl);
+    apiLoggedsUrl = apiLoggedsUrl['url_api_LoggedInUser'] + id;
+    
+    // Get users from database via API
+    let LoggedUser = await apiGetAsJSON(apiLoggedsUrl);
+    return LoggedUser;
+}
 export async function apiGetUserData() {
     const configUrl = await achrome.runtime.getURL('/config.json');
     let apiTicketUrl = await apiGetAsJSON(configUrl);

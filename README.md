@@ -3,7 +3,7 @@
 ![](https://img.shields.io/github/manifest-json/v/s2-db02/s2-webextension) ![](https://img.shields.io/github/issues/s2-db02/s2-webextension) ![](https://img.shields.io/github/last-commit/s2-db02/s2-webextension)
 
 
-Bas World Bug reporter is a Chrome-based web-extension which is a part of the S2-DB02 project used for internal bug reporting within © Bas World.
+Bas World Bug reporter is a Chrome-based web-extension which is a part of the S2-DB02 project used for internal bug reporting within © Bas World. (See our [CMS Portal](https://github.com/S2-DB02/s2-laravel) here.)
 
 This project is developed by S2 students at Fontys University of Applied Science and is mainly used as a school project.
 

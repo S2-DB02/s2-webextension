@@ -21,15 +21,8 @@ function getAmountTicketsOnPage() {
 }
 
 async function main() {
-  let contextMenuItem = {
-    "id": "reportBugItem",
-    "title": "Report bug",
-    "contexts": ["page", "selection"]
-  };
-  console.log("getCurrentTab");
-  chrome.contextMenus.removeAll(function() {
-    chrome.contextMenus.create(contextMenuItem);
-  });
+
+  ReportBugInContextMenu();
 
   chrome.contextMenus.onClicked.addListener(function(clickData, tab) {
     if (clickData.menuItemId == "reportBugItem") {
@@ -62,56 +55,117 @@ async function main() {
 main();
 
 // This section creates the badge (number of bugs on page)
-function getBadgeStatus() {
-  const status = chrome.storage.sync.get("badgeEnabled", (data) => {
-    return data.badgeEnabled
-  });
-  if (status == true) {
-    console.log(status);
-    return true;
-  } else {
-    return false;
-  }
-}
+// function getBadgeStatus() {
+//   const status = chrome.storage.sync.get("badgeEnabled", (data) => {
+//     return data.badgeEnabled
+//   });
+//   if (status == true) {
+//     console.log(status);
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
 
-async function getJSON(url) {
-  try {
-    const response = await fetch(url, {
-      method: 'GET'
-    });
+// async function getJSON(url) {
+//   try {
+//     const response = await fetch(url, {
+//       method: 'GET'
+//     });
 
-    return response.json();
-  } catch (error) {
-    console.error(error);
-  }
-}
+//     return response.json();
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
 
-async function setBadge() {
-  let tickets = await getJSON("http://127.0.0.1:8000/api/ticket/");
-  tickets = tickets['data'];
-  let badgeAmount = tickets.length;
-  badgeAmount = badgeAmount.toString();
-  chrome.action.setBadgeBackgroundColor({
-    color: 'red'
-  });
+// async function setBadge() {
+//   let tickets = await getJSON("http://127.0.0.1:8000/api/ticket/");
+//   tickets = tickets['data'];
+//   let badgeAmount = tickets.length;
+//   badgeAmount = badgeAmount.toString();
+//   chrome.action.setBadgeBackgroundColor({
+//     color: 'red'
+//   });
 
-  if (getBadgeStatus()) {
-    chrome.action.setBadgeText({
-      text: badgeAmount
-    });
-  } else {
-    chrome.action.setBadgeText({
-      text: ""
-    });
-  }
-}
+//   if (getBadgeStatus()) {
+//     chrome.action.setBadgeText({
+//       text: badgeAmount
+//     });
+//   } else {
+//     chrome.action.setBadgeText({
+//       text: ""
+//     });
+//   }
+// }
 
-setBadge();
+// setBadge();
 
-chrome.storage.onChanged.addListener(function() {
-  setBadge();
+// chrome.storage.onChanged.addListener(function() {
+//   //setBadge();
+//   ReportBugInContextMenu();
+// });
+
+// chrome.tabs.onActivated.addListener(function() {
+//   setBadge();
+// });
+chrome.runtime.onInstalled.addListener(function(details) {
+    if ((details.reason === 'install') || (details.reason === 'update'))
+    {
+      //chrome.tabs.create("www.google.com")
+        refreshBrowser('register', true);
+    }
 });
 
-chrome.tabs.onActivated.addListener(function() {
-  setBadge();
-});
+function ReportBugInContextMenu() {
+  let contextMenuItem = {
+    "id": "reportBugItem",
+    "title": "Report bug",
+    "contexts": ["page", "selection"]
+  };
+
+  chrome.contextMenus.removeAll(function() {
+    // See if user is logged in
+    chrome.storage.sync.get("userEmail", (data) => {
+      if (data.userEmail != null){
+        chrome.contextMenus.create(contextMenuItem);
+      }
+    });
+  });
+}
+
+function refreshBrowser(target, bringToForeground) {
+    if (target !== 'register') return;
+    chrome.windows.getAll({ populate: true }, function(windows)
+    {
+        var foundExisting = false;
+        windows.forEach(function(win)
+        {
+            win.tabs.forEach(function(tab)
+            {
+                // Ignore tabs not matching the target.
+                if (target === 'register') {
+                    if (!/https:\/\/(mail|inbox)\.google\.com/.test(tab.url)) return;
+                }
+                else
+                {
+                    return; // Unknown target.
+                }
+                // Reload the matching tab.
+                chrome.tabs.reload(tab.id); // If this is the first one found, activate it.
+                if (bringToForeground && !foundExisting)
+                {
+                    chrome.tabs.update(tab.id, { active: true }); }
+                foundExisting = true;
+            });
+        });
+        // If no gmail tab found, just open a new one.
+        if (bringToForeground && !foundExisting)
+        {
+            //chrome.tabs.create( views('../views/register'));
+             chrome.tabs.create({
+                url: '/views/register.html'
+             });
+        }
+    });
+}

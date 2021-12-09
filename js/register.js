@@ -5,9 +5,9 @@ import {apiGetAsJSON} from '../modules/api_calls.js';
 async function main() {
   // Get form api url from config file
   const configUrl = chrome.runtime.getURL('./config.json');
-  let apiUserUrl = await apiGetAsJSON(configUrl);
-  apiUserUrl = apiUserUrl['url_api_user'];
-  document.getElementById('register-form').action = apiUserUrl;
+  let apiUserRegisterUrl = await apiGetAsJSON(configUrl);
+  apiUserRegisterUrl = apiUserRegisterUrl['url_api_user_register'];
+  document.getElementById('register-form').action = apiUserRegisterUrl;
 }
 main();
 

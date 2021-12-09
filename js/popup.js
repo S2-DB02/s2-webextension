@@ -4,11 +4,11 @@ import {apiGetAsJSON} from '../modules/api_calls.js';
 
 
 async function main() {
-  // Get form api url from config file
-  const configUrl = chrome.runtime.getURL('./config.json');
-  let apiUserUrl = await apiGetAsJSON(configUrl);
-  apiUserUrl = apiUserUrl['url_api_user'];
-  document.getElementById('login-form').action = apiUserUrl;
+    // Get form api url from config file
+    const configUrl = chrome.runtime.getURL('./config.json');
+    let apiUserLoginUrl = await apiGetAsJSON(configUrl);
+    apiUserLoginUrl = apiUserLoginUrl['url_api_user_login'];
+    document.getElementById('login-form').action = apiUserLoginUrl;
 }
 
 main();
@@ -66,12 +66,15 @@ checkLogin();
 document.getElementById("reportBugBtn").addEventListener("click", ()=>{
     chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
         chrome.storage.local.set({ "bug_url": tabs[0].url })
-      });
+    });
+    chrome.tabs.captureVisibleTab((data) => {
+        chrome.storage.local.set({ "report_img": data })
+    })
     chrome.windows.create({'url': '../views/reportbug.html', 'type': 'popup'
     , "height": 720, "width": 600}, function(window) {})
 });
 
-// Event listener for "Report bug" button
+// Event listener for "Register" button
 document.getElementById("registerBtn").addEventListener("click", ()=>{
     chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
         chrome.storage.local.set({ "bug_url2": tabs[0].url })
@@ -86,30 +89,55 @@ document.getElementById("overviewBtn").addEventListener("click", ()=>{
     // Insert code to open new tab with ticket overview dashboard
 });
 
+// Event listener for "Log out" button
+document.getElementById("logOutBtn").addEventListener("click", ()=>{
+    chrome.storage.sync.remove("userEmail");
+    chrome.storage.sync.remove("userId");
+    chrome.storage.sync.remove("apiToken");
+    checkLogin();
+});
 
-
-// Event listener for "Log in" button
-document.getElementById("logInBtn").addEventListener("click", ()=>{
+function isDomainValid() {
     userEmail = document.getElementById("email").value;
     let uEmail = userEmail.split('@').slice(1);
     let allowedDomains = [ 'basworld.com', 'bastrucks.com'];
     allowedDomains.forEach(function(item)
-        {
-            if(uEmail == item){
-                chrome.storage.sync.set({ "userEmail": userEmail });
-                checkLogin();
-            }
+    {
+        if(uEmail == item){
+            return true;
         }
-    );
+    });
+    return false;
+}
+
+document.forms['login-form'].addEventListener('submit', (event) => {
+    event.preventDefault();
+    // TODO do something here to show user that form is being submitted
+    fetch(event.target.action, {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+    }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+    }).then((body) => {
+        if (body["token"]) {
+            let token = body["token"];
+            let userId = body["id"];
+            chrome.storage.sync.set({ "userEmail": document.getElementById("email").value });
+            chrome.storage.sync.set({ "userId": userId });
+            chrome.storage.sync.set({ "apiToken": token });
+            checkLogin();
+        }
+        else if (body["message"]) {
+            alert(body["message"]);
+        }
+        else {
+            alert("API response was empty. Try again.");
+        }
+    }).catch((error) => {
+        alert("API response was not valid. Try again.");
+        // TODO handle error
+    });
 });
-
-// Event listener for "Log out" button
-document.getElementById("logOutBtn").addEventListener("click", ()=>{
-    chrome.storage.sync.remove("userEmail");
-    checkLogin();
-});
-
-
 
 // Set form action destination URL
 function setUrl() {
