@@ -127,10 +127,14 @@ document.forms['login-form'].addEventListener('submit', (event) => {
             chrome.storage.sync.set({ "apiToken": token });
             checkLogin();
         }
-        else {
+        else if (body["message"]) {
             alert(body["message"]);
         }
+        else {
+            alert("API response was empty. Try again.");
+        }
     }).catch((error) => {
+        alert("API response was not valid. Try again.");
         // TODO handle error
     });
 });
