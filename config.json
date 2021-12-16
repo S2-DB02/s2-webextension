@@ -1,10 +1,10 @@
 {
-    "url_api_user": "https://bugreporter.shiruvaaa.net/api/user/",
-    "url_api_user_login": "https://bugreporter.shiruvaaa.net/api/login/",
-    "url_api_user_register": "https://bugreporter.shiruvaaa.net/api/register/",
-    "url_api_user_logout": "https://bugreporter.shiruvaaa.net/api/logout/",
-    "url_api_ticket": "https://bugreporter.shiruvaaa.net/api/ticket/",
-    "url_api_ticket_page": "https://bugreporter.shiruvaaa.net/api/ticket/url/",
-    "url_api_leaderboard": "https://bugreporter.shiruvaaa.net/api/leaderboard/",
-    "url_api_LoggedInUser": "https://bugreporter.shiruvaaa.net/api/LoggedInUser"
+    "url_api_user": "http://localhost:8000/api/user/",
+    "url_api_user_login": "http://localhost:8000/api/login/",
+    "url_api_user_register": "http://localhost:8000/api/register/",
+    "url_api_user_logout": "http://localhost:8000/api/logout/",
+    "url_api_ticket": "http://localhost:8000/api/ticket/",
+    "url_api_ticket_page": "http://localhost:8000/api/ticket/url/",
+    "url_api_leaderboard": "http://localhost:8000/api/leaderboard/",
+    "url_api_LoggedInUser": "http://localhost:8000/api/LoggedInUser/"
 }
