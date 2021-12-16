@@ -39,7 +39,7 @@
         </div>
         <div class="mb-3">
           <label for="name" class="form-label">Title:</label>
-          <input type="text" class="form-control" name="name" required>
+          <input type="text" pattern="\S+" title="This field is required!" class="form-control" name="name" required>
         </div>
         <!-- <div class="mb-3">
           <label for="screenshot" class="form-label">Upload screenshot (optional):</label>
@@ -51,7 +51,7 @@
 
         <div class="mb-3">
           <label for="remark" class="form-label">Description:</label>
-          <textarea name="remark" class="form-control" rows="5" required></textarea>
+          <textarea name="remark" pattern="\S+" title="This field is required!" id="text1" class="form-control" rows="5" required></textarea>
         </div>
 
         <!-- Hidden fields -->
@@ -71,4 +71,19 @@
 
     <script type="module" src="../js/reportbug.js"></script>
   </body>
+  <script>
+    //JS part
+const vm = new Vue({
+    el:'#app',
+    data:{
+        text1:'',
+        text2:''
+    },
+    methods:{
+        submitText(){
+            this.text2 = this.text1;
+        }
+    }
+})
+  </script>
 </html>
