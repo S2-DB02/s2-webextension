@@ -23,6 +23,7 @@ function getAmountTicketsOnPage() {
 async function main() {
 
   ReportBugInContextMenu();
+  setBadgeIfEnabled();
 
   chrome.contextMenus.onClicked.addListener(function(clickData, tab) {
     if (clickData.menuItemId == "reportBugItem") {
@@ -52,63 +53,54 @@ async function main() {
   });
 }
 
-main();
+
 
 // This section creates the badge (number of bugs on page)
-// function getBadgeStatus() {
-//   const status = chrome.storage.sync.get("badgeEnabled", (data) => {
-//     return data.badgeEnabled
-//   });
-//   if (status == true) {
-//     console.log(status);
-//     return true;
-//   } else {
-//     return false;
-//   }
-// }
+function setBadgeIfEnabled() {
+  chrome.storage.sync.get("badgeEnabled", (data) => {
+    if (data.badgeEnabled == true) {
+      setBadge()
+    }
+    else {
+      chrome.action.setBadgeText({
+        text: ''
+      });
+    }
+  });
+}
 
-// async function getJSON(url) {
-//   try {
-//     const response = await fetch(url, {
-//       method: 'GET'
-//     });
+async function setBadge() {
+    const tickets = await apiGetPageTickets(await getCurrentTabUrl());
+    let badgeAmount = tickets.length;
+    badgeAmount = badgeAmount.toString();
+    chrome.action.setBadgeBackgroundColor({
+      color: 'red'
+    });
+    if (badgeAmount > 0) {
+      chrome.action.setBadgeText({
+        text: badgeAmount
+      });
+    }
+    else {
+      chrome.action.setBadgeText({
+        text: ''
+      });
+    }
+}
 
-//     return response.json();
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
+chrome.storage.onChanged.addListener(function() {
+  setBadgeIfEnabled();
+  ReportBugInContextMenu();
+});
 
-// async function setBadge() {
-//   let tickets = await getJSON("http://127.0.0.1:8000/api/ticket/");
-//   tickets = tickets['data'];
-//   let badgeAmount = tickets.length;
-//   badgeAmount = badgeAmount.toString();
-//   chrome.action.setBadgeBackgroundColor({
-//     color: 'red'
-//   });
+chrome.tabs.onActivated.addListener(function() {
+  setBadgeIfEnabled();
+});
 
-//   if (getBadgeStatus()) {
-//     chrome.action.setBadgeText({
-//       text: badgeAmount
-//     });
-//   } else {
-//     chrome.action.setBadgeText({
-//       text: ""
-//     });
-//   }
-// }
+chrome.tabs.onUpdated.addListener(function() {
+  setBadgeIfEnabled();
+});
 
-// setBadge();
-
-// chrome.storage.onChanged.addListener(function() {
-//   //setBadge();
-//   ReportBugInContextMenu();
-// });
-
-// chrome.tabs.onActivated.addListener(function() {
-//   setBadge();
-// });
 chrome.runtime.onInstalled.addListener(function(details) {
     if ((details.reason === 'install') || (details.reason === 'update'))
     {
@@ -169,3 +161,5 @@ function refreshBrowser(target, bringToForeground) {
         }
     });
 }
+
+main();

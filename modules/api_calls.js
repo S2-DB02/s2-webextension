@@ -1,5 +1,4 @@
 // Module for API call functions
-import {getCurrentTabUrl} from './tabs.js'
 
 export async function apiGetAsJSON(url) {
     try {
@@ -11,15 +10,14 @@ export async function apiGetAsJSON(url) {
     }
 }
 
-export async function apiGetPageTickets() {
+export async function apiGetPageTickets(url) {
     // Get URL from current tab and encode for transmission to API
-    let currentTabUrl = await getCurrentTabUrl();
-    currentTabUrl = encodeURIComponent(currentTabUrl);
-    currentTabUrl = encodeURIComponent(currentTabUrl);
+    url = encodeURIComponent(url);
+    url = encodeURIComponent(url);
 
     const configUrl = chrome.runtime.getURL('/config.json');
     let apiTicketUrl = await apiGetAsJSON(configUrl);
-    apiTicketUrl = apiTicketUrl['url_api_ticket_page'] + currentTabUrl;
+    apiTicketUrl = apiTicketUrl['url_api_ticket_page'] + url;
     
     // Get tickets from database via API
     let tickets = await apiGetAsJSON(apiTicketUrl);
