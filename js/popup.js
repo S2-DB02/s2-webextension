@@ -37,7 +37,7 @@ function toggleLogin()
     if (userEmail != null) {
         hidePageElement("login");
         showPageElement("menu");
-        document.getElementById("loggedInUser").textContent = "Logged in as: " + userEmail;
+        document.getElementById("loggedInUser").textContent = "Welcome: " + userEmail;
     }
     else {
         hidePageElement("menu");
