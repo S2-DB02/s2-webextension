@@ -1,7 +1,7 @@
 // popup.js
 import {apiGetUserData} from '../modules/api_calls.js';
 import {apiGetAsJSON} from '../modules/api_calls.js';
-
+import {getCurrentTabUrl} from '../modules/tabs.js';
 
 async function main() {
     // Get form api url from config file
@@ -9,10 +9,24 @@ async function main() {
     let apiUserLoginUrl = await apiGetAsJSON(configUrl);
     apiUserLoginUrl = apiUserLoginUrl['url_api_user_login'];
     document.getElementById('login-form').action = apiUserLoginUrl;
-}
 
-main();
-
+    // Event listener for "Report bug" button
+    const currentUrl = await getCurrentTabUrl();
+    if (currentUrl.includes('basworld.com')) {
+        document.getElementById("reportBugBtn").addEventListener("click", () => {
+            chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
+                chrome.storage.local.set({ "bug_url": tabs[0].url })
+            });
+            chrome.tabs.captureVisibleTab((data) => {
+                chrome.storage.local.set({ "report_img": data })
+            });
+            chrome.windows.create({'url': '../views/reportbug.html', 'type': 'popup'
+            , "height": 720, "width": 600}, function(window) {});
+        });
+    } else {
+        document.getElementById("reportBugBtn").disabled = true;
+    }
+}  
 
 let userEmail;
 
@@ -63,16 +77,16 @@ checkLogin();
 
 
 // Event listener for "Report bug" button
-document.getElementById("reportBugBtn").addEventListener("click", ()=>{
-    chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
-        chrome.storage.local.set({ "bug_url": tabs[0].url })
-    });
-    chrome.tabs.captureVisibleTab((data) => {
-        chrome.storage.local.set({ "report_img": data })
-    })
-    chrome.windows.create({'url': '../views/reportbug.html', 'type': 'popup'
-    , "height": 720, "width": 600}, function(window) {})
-});
+// document.getElementById("reportBugBtn").addEventListener("click", ()=>{
+//     chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
+//         chrome.storage.local.set({ "bug_url": tabs[0].url })
+//     });
+//     chrome.tabs.captureVisibleTab((data) => {
+//         chrome.storage.local.set({ "report_img": data })
+//     })
+//     chrome.windows.create({'url': '../views/reportbug.html', 'type': 'popup'
+//     , "height": 720, "width": 600}, function(window) {})
+// });
 
 // Event listener for "Register" button
 document.getElementById("registerBtn").addEventListener("click", ()=>{
@@ -151,3 +165,5 @@ let xhr = new XMLHttpRequest();
 xhr.onreadystatechange = setUrl;
 xhr.open("GET", chrome.runtime.getURL('../config.json'), true);
 xhr.send();
+
+main();
