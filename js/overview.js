@@ -1,10 +1,11 @@
 import {apiGetPageTickets} from '../modules/api_calls.js';
+import {getCurrentTabUrl} from '../modules/tabs.js';
 
 async function main() {
 
     let table = document.getElementById("overviewTable").getElementsByTagName('tbody')[0];
 
-    const tickets = await apiGetPageTickets();
+    const tickets = await apiGetPageTickets(await getCurrentTabUrl());
     const types = [
         "Media",
         "Lay-out",
