@@ -98,11 +98,6 @@ document.getElementById("registerBtn").addEventListener("click", ()=>{
 });
 
 
-// Event listener for "Ticket overview" button
-document.getElementById("overviewBtn").addEventListener("click", ()=>{
-    // Insert code to open new tab with ticket overview dashboard
-});
-
 // Event listener for "Log out" button
 document.getElementById("logOutBtn").addEventListener("click", ()=>{
     chrome.storage.sync.remove("userEmail");
