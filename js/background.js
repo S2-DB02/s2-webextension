@@ -101,18 +101,12 @@ chrome.storage.onChanged.addListener(function() {
 
 chrome.tabs.onActivated.addListener(function() {
   setBadgeIfEnabled();
+  ReportBugInContextMenu();
 });
 
 chrome.tabs.onUpdated.addListener(function() {
   setBadgeIfEnabled();
-});
-
-chrome.runtime.onInstalled.addListener(function(details) {
-    if ((details.reason === 'install') || (details.reason === 'update'))
-    {
-      //chrome.tabs.create("www.google.com")
-        refreshBrowser('register', true);
-    }
+  ReportBugInContextMenu();
 });
 
 function ReportBugInContextMenu() {
@@ -124,13 +118,24 @@ function ReportBugInContextMenu() {
 
   chrome.contextMenus.removeAll(function() {
     // See if user is logged in
-    chrome.storage.sync.get("userEmail", (data) => {
+    chrome.storage.sync.get("userEmail", async(data) => {
       if (data.userEmail != null){
-        chrome.contextMenus.create(contextMenuItem);
+        const currentUrl = await getCurrentTabUrl();
+        if (currentUrl.includes('basworld.com')) {
+          chrome.contextMenus.create(contextMenuItem);
+        }
       }
     });
   });
 }
+
+chrome.runtime.onInstalled.addListener(function(details) {
+  if ((details.reason === 'install') || (details.reason === 'update'))
+  {
+    //chrome.tabs.create("www.google.com")
+      refreshBrowser('register', true);
+  }
+});
 
 function refreshBrowser(target, bringToForeground) {
     if (target !== 'register') return;
