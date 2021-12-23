@@ -53,38 +53,44 @@ async function main() {
   });
 }
 
-
-
 // This section creates the badge (number of bugs on page)
+function clearBadge() {
+  chrome.action.setBadgeText({
+    text: ''
+  });
+}
+
 function setBadgeIfEnabled() {
   chrome.storage.sync.get("badgeEnabled", (data) => {
     if (data.badgeEnabled == true) {
       setBadge()
     }
     else {
-      chrome.action.setBadgeText({
-        text: ''
-      });
+      clearBadge();
     }
   });
 }
 
 async function setBadge() {
-    const tickets = await apiGetPageTickets(await getCurrentTabUrl());
-    let badgeAmount = tickets.length;
-    badgeAmount = badgeAmount.toString();
-    chrome.action.setBadgeBackgroundColor({
-      color: 'red'
-    });
-    if (badgeAmount > 0) {
-      chrome.action.setBadgeText({
-        text: badgeAmount
+    const currentUrl = await getCurrentTabUrl();
+    if (currentUrl.includes('basworld.com')) {
+      const tickets = await apiGetPageTickets(currentUrl);
+      let badgeAmount = tickets.length;
+      badgeAmount = badgeAmount.toString();
+      chrome.action.setBadgeBackgroundColor({
+        color: 'red'
       });
+      if (badgeAmount > 0) {
+        chrome.action.setBadgeText({
+          text: badgeAmount
+        });
+      }
+      else {
+        clearBadge();
+      }
     }
     else {
-      chrome.action.setBadgeText({
-        text: ''
-      });
+      clearBadge();
     }
 }
 
