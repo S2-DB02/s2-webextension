@@ -1,6 +1,5 @@
-// popup.js
+// navEvents.js
 import {getCurrentTabUrl} from '../modules/tabs.js';
-import {checkLogin} from '../js/popup.js';
 
 // Event listener for "Report bug" button
 const currentUrl = await getCurrentTabUrl();
@@ -25,5 +24,4 @@ document.getElementById("logOutBtn1").addEventListener("click", ()=>{
     chrome.storage.sync.remove("userId");
     chrome.storage.sync.remove("apiToken");
     window.location.replace("../views/popup.html");
-    //checkLogin();
 });
