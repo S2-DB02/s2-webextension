@@ -1,33 +1,31 @@
 <!-- Includes static header -->
 <div id="static-header"></div>
 <div id="welcome-message">
-  <p><strong>Welcome: </strong><span id="loggedInUser"></span></p>
+  <p style="margin-bottom: 0;"><strong>Welcome: </strong><span id="loggedInUser"></span></p>
 </div>
-    <div class="container">
-      <div id="login">
-        <form id="login-form" action="" method="POST">
-          <div class="mb-3">
-            <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="email" name="email" />
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input
-              type="password"
-              class="form-control"
-              id="password"
-              name="password"
-            />
-          </div>
-          <button type="submit" class="btn btn-primary" id="logInBtn">
-            Log in
-          </button>
-          <a class="btn btn-primary" type="button" id="registerBtn">
-            Register
-          </a>
-        </form>
-      </div> 
-    </div>
+    <div class="container" id="login">
+      <form id="login-form" action="" method="POST">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="email" name="email" />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary" id="logInBtn">
+          Log in
+        </button>
+        <a class="btn btn-primary" type="button" id="registerBtn">
+          Register
+        </a>
+      </form>
+    </div> 
     
     <!--  -->
     <div id="menu">
