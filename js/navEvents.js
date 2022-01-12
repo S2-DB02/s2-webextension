@@ -24,5 +24,6 @@ document.getElementById("logOutBtn1").addEventListener("click", ()=>{
     chrome.storage.sync.remove("userEmail");
     chrome.storage.sync.remove("userId");
     chrome.storage.sync.remove("apiToken");
-    checkLogin();
+    window.location.replace("../views/popup.html");
+    //checkLogin();
 });
