@@ -1,7 +1,9 @@
 {
   "name": "BAS World Bug Reporter",
-  "description": "Bug reporting tool for BAS employees.",
-  "version": "0.1",
+  "description": "Display and report bugs on Bas World and Bas Trucks websites.",
+  "author": "S2-DB02",
+  "homepage_url": "https://github.com/S2-DB02/s2-webextension",
+  "version": "0.2",
   "manifest_version": 3,
   "background": {
     "service_worker": "/js/background.js",
