@@ -1,14 +1,9 @@
 // popup.js
-import {apiGetUserData} from '../modules/api_calls.js';
-import {apiGetAsJSON} from '../modules/api_calls.js';
 import {getCurrentTabUrl} from '../modules/tabs.js';
 import {checkLogin} from '../js/popup.js';
 
-
-
 // Event listener for "Report bug" button
 const currentUrl = await getCurrentTabUrl();
-console.log("bruh");
 if (currentUrl.includes('basworld.com')) {
     document.getElementById("reportBugBtn1").addEventListener("click", () => {
         chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
