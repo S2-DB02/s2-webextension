@@ -1,6 +1,6 @@
 <!-- Includes static header -->
 <div id="static-header"></div>
-
+<p><strong>Welcome: </strong><span id="loggedInUser"></span></p>
     <div class="container">
       <div id="login">
         <form id="login-form" action="" method="POST">
@@ -26,27 +26,75 @@
         </form>
       </div> 
     </div>
+    
     <!--  -->
-    <div class="container mb-5">
-      <table class="table table-striped" id="overviewTable">
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Type</th>
-            <th scope="col">Date</th>
-            <th scope="col">Description</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+    <div id="menu">
+      <div class="container mb-5">
+        <table class="table table-striped" id="overviewTable">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Type</th>
+              <th scope="col">Date</th>
+              <th scope="col">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- Includes static header -->
+      <div class="container fixed-bottom">
+        <hr>
+        <nav>
+          <ul class="nav nav-fill nav-justified justify-content-center">
+            <!---->
+            <li class="nav-item">
+              <a type="button" class="btn nav-link" href="./popup.html">
+                <i style="color:#1d9f5e" class="fas fa-home fa-lg"></i>
+              </a>
+            </li>
+            <!--  -->
+            <li class="nav-item">
+              <button type="button" class="btn nav-link" id="reportBugBtn1">
+                <i style="color:#1d9f5e" class="fas fa-bug fa-lg"></i>
+              </button>
+            </li>
+            <!---->
+            <li class="nav-item">
+              <a type="button" class="btn nav-link" href="./Leaderboard.html" id="LeaderboardBtn">
+                <i style="color:#1d9f5e" class="fas fa-list-ol fa-lg"></i>
+              </a>
+            </li>
+            <!---->
+            <li class="nav-item">
+              <a type="button" class="btn nav-link" href="./Achievement.html" id="AchievementBtn">
+                <i style="color:#1d9f5e" class="fas fa-trophy fa-lg"></i>
+              </a>
+            </li>
+            <!---->
+            <li class="nav-item">
+              <a type="button" class="btn nav-link" href="./options.html">
+                <i style="color:#1d9f5e" class="fas fa-cog fa-lg"></i>
+              </a>
+            </li>
+            <!---->
+            <li class="nav-item">
+              <button type="button" class="btn nav-link" id="logOutBtn1">
+                <i style="color:#1d9f5e" class="fas fa-sign-out-alt fa-lg"></i>
+              </button>
+            </li> 
+          </ul>
+        </nav>
+      </div>
     </div>
     
-    <!-- Includes static header -->
-    <div id="static-footer"></div>
     
     <script type="module" src="../js/statichtml.js"></script>
     <script type="module" src="../js/overview.js"></script>
     <script type="module" src="../js/popup.js"></script>
+    <script type="module" src="../js/navEvents.js"></script>
+
   </body>
 </html>
