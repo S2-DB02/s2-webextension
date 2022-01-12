@@ -9,23 +9,6 @@ async function main() {
     let apiUserLoginUrl = await apiGetAsJSON(configUrl);
     apiUserLoginUrl = apiUserLoginUrl['url_api_user_login'];
     document.getElementById('login-form').action = apiUserLoginUrl;
-
-    // Event listener for "Report bug" button
-    const currentUrl = await getCurrentTabUrl();
-    if (currentUrl.includes('basworld.com')) {
-        document.getElementById("reportBugBtn").addEventListener("click", () => {
-            chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
-                chrome.storage.local.set({ "bug_url": tabs[0].url })
-            });
-            chrome.tabs.captureVisibleTab((data) => {
-                chrome.storage.local.set({ "report_img": data })
-            });
-            chrome.windows.create({'url': '../views/reportbug.html', 'type': 'popup'
-            , "height": 720, "width": 600}, function(window) {});
-        });
-    } else {
-        document.getElementById("reportBugBtn").disabled = true;
-    }
 }  
 
 let userEmail;
@@ -50,8 +33,8 @@ function toggleLogin()
 {
     if (userEmail != null) {
         hidePageElement("login");
-        showPageElement("menu");
-        document.getElementById("loggedInUser").textContent = "Welcome: " + userEmail;
+        showPageElement("menu");   
+        document.getElementById("loggedInUser").textContent = userEmail;
     }
     else {
         hidePageElement("menu");
@@ -59,7 +42,7 @@ function toggleLogin()
     }
 }
 
-function checkLogin()
+export function checkLogin()
 {
     chrome.storage.sync.get("userEmail", (data) => {
         if (data.userEmail != null){
@@ -98,13 +81,7 @@ document.getElementById("registerBtn").addEventListener("click", ()=>{
 });
 
 
-// Event listener for "Log out" button
-document.getElementById("logOutBtn").addEventListener("click", ()=>{
-    chrome.storage.sync.remove("userEmail");
-    chrome.storage.sync.remove("userId");
-    chrome.storage.sync.remove("apiToken");
-    checkLogin();
-});
+
 
 function isDomainValid() {
     userEmail = document.getElementById("email").value;
