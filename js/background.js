@@ -23,6 +23,7 @@ function getAmountTicketsOnPage() {
 async function main() {
 
   ReportBugInContextMenu();
+  setBadgeIfEnabled();
 
   chrome.contextMenus.onClicked.addListener(function(clickData, tab) {
     if (clickData.menuItemId == "reportBugItem") {
@@ -52,69 +53,60 @@ async function main() {
   });
 }
 
-main();
-
 // This section creates the badge (number of bugs on page)
-// function getBadgeStatus() {
-//   const status = chrome.storage.sync.get("badgeEnabled", (data) => {
-//     return data.badgeEnabled
-//   });
-//   if (status == true) {
-//     console.log(status);
-//     return true;
-//   } else {
-//     return false;
-//   }
-// }
+function clearBadge() {
+  chrome.action.setBadgeText({
+    text: ''
+  });
+}
 
-// async function getJSON(url) {
-//   try {
-//     const response = await fetch(url, {
-//       method: 'GET'
-//     });
-
-//     return response.json();
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
-// async function setBadge() {
-//   let tickets = await getJSON("http://127.0.0.1:8000/api/ticket/");
-//   tickets = tickets['data'];
-//   let badgeAmount = tickets.length;
-//   badgeAmount = badgeAmount.toString();
-//   chrome.action.setBadgeBackgroundColor({
-//     color: 'red'
-//   });
-
-//   if (getBadgeStatus()) {
-//     chrome.action.setBadgeText({
-//       text: badgeAmount
-//     });
-//   } else {
-//     chrome.action.setBadgeText({
-//       text: ""
-//     });
-//   }
-// }
-
-// setBadge();
-
-// chrome.storage.onChanged.addListener(function() {
-//   //setBadge();
-//   ReportBugInContextMenu();
-// });
-
-// chrome.tabs.onActivated.addListener(function() {
-//   setBadge();
-// });
-chrome.runtime.onInstalled.addListener(function(details) {
-    if ((details.reason === 'install') || (details.reason === 'update'))
-    {
-      //chrome.tabs.create("www.google.com")
-        refreshBrowser('register', true);
+function setBadgeIfEnabled() {
+  chrome.storage.sync.get("badgeEnabled", (data) => {
+    if (data.badgeEnabled == true) {
+      setBadge()
     }
+    else {
+      clearBadge();
+    }
+  });
+}
+
+async function setBadge() {
+    const currentUrl = await getCurrentTabUrl();
+    if (currentUrl.includes('basworld.com')) {
+      const tickets = await apiGetPageTickets(currentUrl);
+      let badgeAmount = tickets.length;
+      badgeAmount = badgeAmount.toString();
+      chrome.action.setBadgeBackgroundColor({
+        color: 'red'
+      });
+      if (badgeAmount > 0) {
+        chrome.action.setBadgeText({
+          text: badgeAmount
+        });
+      }
+      else {
+        clearBadge();
+      }
+    }
+    else {
+      clearBadge();
+    }
+}
+
+chrome.storage.onChanged.addListener(function() {
+  setBadgeIfEnabled();
+  ReportBugInContextMenu();
+});
+
+chrome.tabs.onActivated.addListener(function() {
+  setBadgeIfEnabled();
+  ReportBugInContextMenu();
+});
+
+chrome.tabs.onUpdated.addListener(function() {
+  setBadgeIfEnabled();
+  ReportBugInContextMenu();
 });
 
 function ReportBugInContextMenu() {
@@ -126,13 +118,24 @@ function ReportBugInContextMenu() {
 
   chrome.contextMenus.removeAll(function() {
     // See if user is logged in
-    chrome.storage.sync.get("userEmail", (data) => {
+    chrome.storage.sync.get("userEmail", async(data) => {
       if (data.userEmail != null){
-        chrome.contextMenus.create(contextMenuItem);
+        const currentUrl = await getCurrentTabUrl();
+        if (currentUrl.includes('basworld.com')) {
+          chrome.contextMenus.create(contextMenuItem);
+        }
       }
     });
   });
 }
+
+chrome.runtime.onInstalled.addListener(function(details) {
+  if ((details.reason === 'install') || (details.reason === 'update'))
+  {
+    //chrome.tabs.create("www.google.com")
+      refreshBrowser('register', true);
+  }
+});
 
 function refreshBrowser(target, bringToForeground) {
     if (target !== 'register') return;
@@ -169,3 +172,5 @@ function refreshBrowser(target, bringToForeground) {
         }
     });
 }
+
+main();

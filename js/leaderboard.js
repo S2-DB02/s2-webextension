@@ -1,4 +1,4 @@
-import {apiGetLoggedInUser, apiGetPagePoints, apiGetPageTickets} from '../modules/api_calls.js';
+import {apiGetPagePoints, apiGetPageTickets} from '../modules/api_calls.js';
 
 async function main() {
 
@@ -9,9 +9,8 @@ async function main() {
         return userId;
     });
     
-    await apiGetPageTickets();
+    await apiGetPageTickets('https://www.basworld.com/');
     const users = await apiGetPagePoints(userId);
-    console.log(userId);
     // Fill table with fetched tickets
     for (const User in users) {
         // Create an empty <tr> element and add it to the 1st position of the table:

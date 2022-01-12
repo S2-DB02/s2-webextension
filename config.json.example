@@ -1,0 +1,10 @@
+{
+    "url_api_user": "https://YOURURLHERE.com/api/user",
+    "url_api_user_login": "https://YOURURLHERE.com/api/login/",
+    "url_api_user_register": "https://YOURURLHERE.com/api/register/",
+    "url_api_user_logout": "https://YOURURLHERE.com/api/logout/",
+    "url_api_ticket": "https://YOURURLHERE.com/api/ticket/",
+    "url_api_ticket_page": "https://YOURURLHERE.com/api/ticket/url/",
+    "url_api_leaderboard": "https://YOURURLHERE.com/api/leaderboard/",
+    "url_api_LoggedInUser": "https://YOURURLHERE.com/api/LoggedInUser/"
+}
